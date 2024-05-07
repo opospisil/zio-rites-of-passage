@@ -1,5 +1,26 @@
 *.class
 *.log
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
+project/zecret
+project/travis-deploy-key
+project/secrets.tar.xz
+target
+test-output/
+.sbtopts
+.bsp
+project/.sbt
+test-output/
+.bloop
+.metals
+metals.sbt
+*/metals.sbt
+.idea
+coursier
+.DS_Store
+metals.sbt
+project/metals.sbt
+project/project/metals.sbt
+sbt.json
+.bsp/
+project/project/
+*.iml
