@@ -14,11 +14,10 @@ private object Version {
   val zio     = "2.0.22"
   val zioJson = "0.6.2"
 
+  val logback = "1.3.5"
   val zioLogging = "2.2.3"
 
   val pureConfig = "0.17.4"
-
-  val logback = "1.3.5"
 
   val tapir    = "1.10.6"
   val sttp     = "3.8.8"
