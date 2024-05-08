@@ -7,7 +7,7 @@ object Dependencies {
   val model              = Seq.empty[ModuleID]
   val service            = zioGroup ++ loggingGroup ++ testGroup
   val config             = configGroup
-  val foundations       = zioGroup ++ loggingGroup ++ testGroup ++ tapirGroup
+  val foundations       = zioGroup ++ loggingGroup ++ testGroup ++ tapirGroup ++ dbGroup
 }
 
 private object Version {
@@ -33,6 +33,7 @@ private object Groups {
   val testGroup    = Seq(zioTest, zioTestSbt, zioTestMagnolia, zioTestJunit, zioMock, tapirStub)
   val loggingGroup = Seq(logback, zioLogging, zioLoggingSlf4j)
   val tapirGroup   = Seq(tapirSttp, tapirJsonZio, sttpZio, tapirZio, tapirHttp, tapirSwagger)
+  val dbGroup      = Seq(quillZio, postgresql, flywaydb, testContainersPostgres)
 }
 
 private object Libs {

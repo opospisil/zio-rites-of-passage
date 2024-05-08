@@ -86,11 +86,6 @@ object TapirDemo extends ZIOAppDefault {
   )
 }
 
-case class Job(id: Long, title: String, url: String, Company: String)
-
-object Job {
-  implicit val jobCodec: JsonCodec[Job] = DeriveJsonCodec.gen[Job]
-}
 
 case class CreateJobRequest(title: String, url: String, company: String)
 
