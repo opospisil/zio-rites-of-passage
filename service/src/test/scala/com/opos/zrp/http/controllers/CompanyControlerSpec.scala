@@ -11,6 +11,7 @@ import sttp.monad.MonadError
 import sttp.tapir.ztapir.RIOMonadError
 import com.opos.zrp.http.requests.CreateCompanyRequest
 import com.opos.zrp.domain.data.Company
+import com.opos.zrp.syntax.*
 import sttp.tapir.server.ServerEndpoint
 
 object CompanyControlerSpec extends ZIOSpecDefault {
@@ -46,13 +47,11 @@ object CompanyControlerSpec extends ZIOSpecDefault {
         } yield response.body
 
         // inspect the response
-        assertZIO(program)(
-          Assertion.assertion("inspect http response from create") { respBody =>
-            respBody.toOption
-              .flatMap(_.fromJson[Company].toOption) // Option[Company]
-              .contains(Company(1, "test-company-inc.", "Test Company inc.", "test.com"))
-          }
-        )
+        program.assert { respBody =>
+          respBody.toOption
+            .flatMap(_.fromJson[Company].toOption) // Option[Company]
+            .contains(Company(1, "test-company-inc.", "Test Company inc.", "test.com"))
+        }
       },
       test("get all compaines") {
         val program = for {
@@ -62,15 +61,12 @@ object CompanyControlerSpec extends ZIOSpecDefault {
                         .send(backendStub)
 
         } yield response.body
-
         // inspect the response
-        assertZIO(program)(
-          Assertion.assertion("inspect http response from getAll") { respBody =>
-            respBody.toOption
-              .flatMap(_.fromJson[List[Company]].toOption) // Option[Company]
-              .contains(List.empty)
-          }
-        )
+        program.assert { respBody =>
+          respBody.toOption
+            .flatMap(_.fromJson[List[Company]].toOption) // Option[Company]
+            .contains(List.empty)
+        }
       }
     )
 }
