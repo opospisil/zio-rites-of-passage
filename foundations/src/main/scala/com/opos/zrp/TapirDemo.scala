@@ -34,7 +34,7 @@ object TapirDemo extends ZIOAppDefault {
     1L -> Job(1L, "Instructor", "https://www.google.com", "Google")
   )
 
-  val getAllJobsEndpoint: ServerEndpoint[Any,Task] = endpoint
+  val getAllJobsEndpoint: ServerEndpoint[Any, Task] = endpoint
     .tag("jobs")
     .name("Get all jobs")
     .description("Get all jobs from the database")
@@ -43,7 +43,7 @@ object TapirDemo extends ZIOAppDefault {
     .out(jsonBody[List[Job]])
     .serverLogicSuccess[Task](_ => ZIO.succeed(db.values.toList))
 
-  val createJobEndpoint: ServerEndpoint[Any, Task]= endpoint
+  val createJobEndpoint: ServerEndpoint[Any, Task] = endpoint
     .tag("jobs")
     .name("Create a job")
     .description("Create a job in the database")
@@ -85,7 +85,6 @@ object TapirDemo extends ZIOAppDefault {
     Server.default
   )
 }
-
 
 case class CreateJobRequest(title: String, url: String, company: String)
 

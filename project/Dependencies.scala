@@ -3,21 +3,22 @@ import sbt._
 object Dependencies {
   import Groups._
 
-  val app = zioGroup ++ configGroup ++ testGroup ++ loggingGroup
-  val model              = Seq.empty[ModuleID]
-  val service            = zioGroup ++ loggingGroup ++ testGroup
-  val config             = configGroup
-  val foundations       = zioGroup ++ loggingGroup ++ testGroup ++ tapirGroup ++ dbGroup
+  val app         = zioGroup ++ configGroup ++ testGroup ++ loggingGroup
+  val model       = Seq.empty[ModuleID]
+  val service     = zioGroup ++ loggingGroup ++ testGroup ++ tapirGroup ++ dbGroup
+  val config      = configGroup
+  val foundations = zioGroup ++ loggingGroup ++ testGroup ++ tapirGroup ++ dbGroup ++ jdiameterGroup
 }
 
 private object Version {
-  val zio     = "2.0.22"
-  val zioJson = "0.6.2"
+  val zio       = "2.1.1"
+  val zioJson   = "0.6.2"
+  val zioConfig = "4.0.2"
 
-  val logback = "1.3.5"
+  val logback    = "1.3.5"
   val zioLogging = "2.2.3"
 
-  val pureConfig = "0.17.4"
+  val pureConfig = "0.17.6"
 
   val tapir    = "1.10.6"
   val sttp     = "3.8.8"
@@ -28,18 +29,20 @@ private object Version {
 private object Groups {
   import Libs._
 
-  val configGroup  = Seq(pureConfig)
-  val zioGroup     = Seq(zio, zioStreams, zioJson, zioMacro)
-  val testGroup    = Seq(zioTest, zioTestSbt, zioTestMagnolia, zioTestJunit, zioMock, tapirStub)
-  val loggingGroup = Seq(logback, zioLogging, zioLoggingSlf4j)
-  val tapirGroup   = Seq(tapirSttp, tapirJsonZio, sttpZio, tapirZio, tapirHttp, tapirSwagger)
-  val dbGroup      = Seq(quillZio, postgresql, flywaydb, testContainersPostgres)
+  val configGroup    = Seq(zioConfig)
+  val zioGroup       = Seq(zio, zioStreams, zioJson, zioMacro)
+  val testGroup      = Seq(zioTest, zioTestSbt, zioTestMagnolia, zioTestJunit, zioMock, tapirStub)
+  val loggingGroup   = Seq(logback, zioLogging, zioLoggingSlf4j)
+  val tapirGroup     = Seq(tapirSttp, tapirJsonZio, sttpZio, tapirZio, tapirHttp, tapirSwagger)
+  val dbGroup        = Seq(quillZio, postgresql, flywaydb, testContainersPostgres)
+  val jdiameterGroup = Seq(jdiameterApi, jdiameterImpl)
 }
 
 private object Libs {
 
   val zio             = "dev.zio" %% "zio"               % Version.zio
   val zioStreams      = "dev.zio" %% "zio-streams"       % Version.zio
+  val zioConfig       = "dev.zio" %% "zio-config"        % Version.zioConfig
   val zioJson         = "dev.zio" %% "zio-json"          % Version.zioJson
   val zioLogging      = "dev.zio" %% "zio-logging"       % Version.zioLogging
   val zioLoggingSlf4j = "dev.zio" %% "zio-logging-slf4j" % Version.zioLogging
@@ -47,7 +50,11 @@ private object Libs {
 
   val logback = "ch.qos.logback" % "logback-classic" % Version.logback
 
-  val pureConfig = "com.github.pureconfig" %% "pureconfig" % Version.pureConfig
+  //val pureConfig = "com.github.pureconfig" %% "pureconfig" % Version.pureConfig
+
+  val jdiameterApi     = "org.mobicents.diameter" % "jdiameter-api"  % "1.7.1-123"
+  val jdiameterImpl    = "org.mobicents.diameter" % "jdiameter-impl" % "1.7.1-123"
+  val mobicentsCommons = "org.mobicents.commons"  % "commons"        % "2.1.0-139"
 
   val zioTest         = "dev.zio"                     %% "zio-test"               % Version.zio   % Test
   val zioTestSbt      = "dev.zio"                     %% "zio-test-sbt"           % Version.zio   % Test

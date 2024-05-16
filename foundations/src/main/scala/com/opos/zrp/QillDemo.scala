@@ -1,7 +1,7 @@
 package com.opos.zrp
 
-import zio._
-import io.getquill._
+import zio.*
+import io.getquill.*
 import io.getquill.jdbczio.Quill
 
 object QillDemo extends ZIOAppDefault {
@@ -28,12 +28,13 @@ trait JobRepository {
 }
 
 class JobRepositoryLive(quill: Quill.Postgres[SnakeCase]) extends JobRepository {
-  import quill._
+
+  import quill.*
 
   // scala 3 uses inline given with type.. scala 2 seems like it needs tobe private implicit without a type annotation
-  private[JobRepositoryLive] implicit val schema  = schemaMeta[Job]("jobs") // specify table name
-  private[JobRepositoryLive] implicit val insMeta = insertMeta[Job](_.id)   // columns to be excluded in insert
-  private[JobRepositoryLive] implicit val upMeta  = updateMeta[Job](_.id)   // columns to be excluded in update
+  inline given schema: SchemaMeta[Job]  = schemaMeta[Job]("jobs") // specify table name
+  inline given insMeta: InsertMeta[Job] = insertMeta[Job](_.id)   // columns to be excluded in insert
+  inline given upMeta: UpdateMeta[Job]  = updateMeta[Job](_.id)   // columns to be excluded in update
 
   override def createJob(job: Job): Task[Job] =
     run {

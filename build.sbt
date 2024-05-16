@@ -2,10 +2,11 @@ lazy val grabGitSha = taskKey[Unit]("stores the latest git sha to a resource fil
 
 lazy val commonSettings = Seq(
   version       := "0.0.1",
-  scalaVersion  := "2.12.17",
-  scalacOptions := "-Xasync" :: "-Ywarn-unused-import" :: "-encoding" :: "utf8" :: "-Xfatal-warnings" :: "-deprecation" :: "-unchecked" :: "-language:higherKinds" :: "-feature" :: "-Ypartial-unification" :: Nil,
+  scalaVersion  := "3.3.3",
+  scalacOptions := "-encoding" :: "utf8" :: "-Xfatal-warnings" :: "-deprecation" :: "-unchecked" :: "-language:higherKinds" :: "-feature" :: Nil,
   organization  := "opos",
   testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework"),
+  resolvers += Resolver.mavenLocal,
   libraryDependencies ++= {
     import Ordering.Implicits._
     if (VersionNumber(scalaVersion.value).numbers >= Seq(2L, 13L)) {
@@ -65,7 +66,4 @@ lazy val root = (project in file("."))
     publish / skip      := true,
     Compile / mainClass := Some("com.opos.zrp.Runner")
   )
-  .aggregate(foundations)
-  .dependsOn(
-    foundations
-  )
+  .dependsOn(app)
