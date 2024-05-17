@@ -1,7 +1,7 @@
-package com.opos.zrp.http.controllers
+package com.opos.reviewboard.http.controllers
 
 import zio.*
-import com.opos.zrp.http.endpoints.HealthEndpoint
+import com.opos.reviewboard.http.endpoints.HealthEndpoint
 import sttp.tapir.server.ServerEndpoint
 
 class HealthController private extends BaseController with HealthEndpoint {

@@ -1,4 +1,4 @@
-package com.opos.zrp.http.endpoints
+package com.opos.reviewboard.http.endpoints
 
 import sttp.tapir.*
 

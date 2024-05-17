@@ -1,4 +1,4 @@
-package com.opos.zrp.http.controllers
+package com.opos.reviewboard.http.controllers
 
 import zio.*
 import sttp.tapir.server.ServerEndpoint

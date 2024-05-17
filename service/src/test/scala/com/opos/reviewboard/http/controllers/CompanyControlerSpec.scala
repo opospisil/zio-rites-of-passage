@@ -1,4 +1,4 @@
-package com.opos.zrp.http.controllers
+package com.opos.reviewboard.http.controllers
 
 import zio.test.*
 import zio.*
@@ -9,12 +9,25 @@ import sttp.client3.testing.SttpBackendStub
 import sttp.client3.*
 import sttp.monad.MonadError
 import sttp.tapir.ztapir.RIOMonadError
-import com.opos.zrp.http.requests.CreateCompanyRequest
-import com.opos.zrp.domain.data.Company
-import com.opos.zrp.syntax.*
+import com.opos.reviewboard.http.requests.CreateCompanyRequest
+import com.opos.reviewboard.domain.data.Company
+import com.opos.reviewboard.syntax.*
 import sttp.tapir.server.ServerEndpoint
+import com.opos.reviewboard.domain.CompanyService
 
 object CompanyControlerSpec extends ZIOSpecDefault {
+
+  private val testCompany = Company(1, "test-company-inc.", "Test Company inc.", "test.com")
+  private val serviceStub = new CompanyService {
+    override def create(req: CreateCompanyRequest): Task[Company] =
+      ZIO.succeed(testCompany)
+    override def getAll: Task[List[Company]] =
+      ZIO.succeed(List(testCompany))
+    override def getById(id: Long): Task[Option[Company]] =
+      ZIO.succeed(if (id == 1) Some(testCompany) else None)
+    override def getBySlug(slug: String): Task[Option[Company]] =
+      ZIO.succeed(if (slug == testCompany.slug) Some(testCompany) else None)
+  }
 
   private given zioMonadError: MonadError[Task] = new RIOMonadError[Any]
 
@@ -65,8 +78,8 @@ object CompanyControlerSpec extends ZIOSpecDefault {
         program.assert { respBody =>
           respBody.toOption
             .flatMap(_.fromJson[List[Company]].toOption) // Option[Company]
-            .contains(List.empty)
+            .contains(List(testCompany))
         }
       }
-    )
+    ).provide(ZLayer.succeed(serviceStub))
 }

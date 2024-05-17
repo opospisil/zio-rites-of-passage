@@ -1,12 +1,13 @@
-package com.opos.zrp
+package com.opos.reviewboard
 
 import sttp.tapir.*
 import zio.*
 import zio.http.Server
 import sttp.tapir.server.ziohttp.ZioHttpInterpreter
 import sttp.tapir.server.ziohttp.ZioHttpServerOptions
-import com.opos.zrp.http.controllers.HealthController
-import com.opos.zrp.http.HttpApi
+import com.opos.reviewboard.http.controllers.HealthController
+import com.opos.reviewboard.http.HttpApi
+import com.opos.reviewboard.domain.CompanyService
 
 object Runner extends ZIOAppDefault {
 
@@ -23,6 +24,7 @@ object Runner extends ZIOAppDefault {
   override def run =
     serverProgram
       .provide(
-        Server.default
+        Server.default,
+        CompanyService.dummy
       )
 }

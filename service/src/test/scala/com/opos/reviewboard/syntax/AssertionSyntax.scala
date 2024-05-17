@@ -1,4 +1,4 @@
-package com.opos.zrp.syntax
+package com.opos.reviewboard.syntax
 
 import zio.*
 import zio.test.*

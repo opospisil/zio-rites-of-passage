@@ -1,6 +1,6 @@
-package com.opos.zrp.http
+package com.opos.reviewboard.http
 
-import com.opos.zrp.http.controllers.*
+import com.opos.reviewboard.http.controllers.*
 
 object HttpApi {
 

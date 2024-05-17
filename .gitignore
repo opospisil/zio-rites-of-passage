@@ -24,3 +24,4 @@ sbt.json
 .bsp/
 project/project/
 *.iml
+app/src/main/resources/commit

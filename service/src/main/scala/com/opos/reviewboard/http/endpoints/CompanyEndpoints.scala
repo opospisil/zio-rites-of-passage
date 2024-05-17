@@ -1,11 +1,11 @@
-package com.opos.zrp.http.endpoints
+package com.opos.reviewboard.http.endpoints
 
 import sttp.tapir.*
 import sttp.tapir.json.zio.*
 import sttp.tapir.generic.auto.*
 
-import com.opos.zrp.http.requests.*
-import com.opos.zrp.domain.data.*
+import com.opos.reviewboard.http.requests.*
+import com.opos.reviewboard.domain.data.*
 
 trait CompanyEndpoints {
   val createEndpoint = endpoint
