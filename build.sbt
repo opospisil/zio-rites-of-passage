@@ -64,6 +64,6 @@ lazy val root = (project in file("."))
     name := "zio-rites-of-passage",
     commonSettings,
     publish / skip      := true,
-    Compile / mainClass := Some("com.opos.zrp.Runner")
+    Compile / mainClass := Some("com.opos.reviewboard.Runner")
   )
   .dependsOn(app)

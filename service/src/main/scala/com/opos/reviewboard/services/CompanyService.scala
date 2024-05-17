@@ -1,11 +1,13 @@
-package com.opos.reviewboard.domain
+package com.opos.reviewboard.services
 
 import zio.*
 import collection.mutable
 import com.opos.reviewboard.domain.data.Company
 import com.opos.reviewboard.http.requests.CreateCompanyRequest
+import com.opos.reviewboard.repository.CompanyRepository
 //BUSINESS LOGIC
 // in between the HTTP layer and the DB layer
+// controller(http) -> service -> repository(db)
 trait CompanyService {
 
   def create(req: CreateCompanyRequest): Task[Company]
@@ -18,29 +20,24 @@ trait CompanyService {
 
 }
 
-class CompanyServiceDummy extends CompanyService {
-
-  // in-memory db
-  val db = mutable.Map.empty[Long, Company]
+class CompanyServiceLive private (repo: CompanyRepository) extends CompanyService {
 
   override def create(req: CreateCompanyRequest): Task[Company] =
-    ZIO.succeed {
-      val newId      = db.keys.maxOption.getOrElse(0L) + 1
-      val newCompany = req.toCompany(newId)
-      db += (newId -> newCompany)
-      newCompany
-    }
+    repo.create(req.toCompany(-1L))
 
-  override def getAll: Task[List[Company]] = ZIO.succeed(db.values.toList)
+  override def getAll: Task[List[Company]] = repo.getAll
 
-  override def getById(id: Long): Task[Option[Company]] = ZIO.succeed(db.get(id))
+  override def getById(id: Long): Task[Option[Company]] = repo.getById(id)
 
-  override def getBySlug(slug: String): Task[Option[Company]] =
-    ZIO.succeed(db.values.find(_.slug == slug))
+  override def getBySlug(slug: String): Task[Option[Company]] = repo.getBySlug(slug)
 
 }
 
+object CompanyServiceLive {
+  val layer = ZLayer {
+    for {
+      repo <- ZIO.service[CompanyRepository]
+    } yield new CompanyServiceLive(repo)
 
-object CompanyService {
-  val dummy= ZLayer.succeed(new CompanyServiceDummy)
+  }
 }

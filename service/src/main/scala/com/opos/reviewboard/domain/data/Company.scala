@@ -18,11 +18,10 @@ final case class Company(
 object Company {
   given codec: JsonCodec[Company] = DeriveJsonCodec.gen[Company]
 
-  def makeSlug(name: String): String = {
+  def makeSlug(name: String): String =
     name
-      .replaceAll(" +"," ")
+      .replaceAll(" +", " ")
       .split(" ")
       .map(_.toLowerCase)
       .mkString("-")
-  }
 }

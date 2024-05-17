@@ -5,8 +5,8 @@ import com.opos.reviewboard.http.endpoints.CompanyEndpoints
 
 import collection.mutable
 import com.opos.reviewboard.domain.data.Company
+import com.opos.reviewboard.services.CompanyService
 import sttp.tapir.server.ServerEndpoint
-import com.opos.reviewboard.domain.CompanyService
 
 class CompanyController private (service: CompanyService) extends BaseController with CompanyEndpoints {
 

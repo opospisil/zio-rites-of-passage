@@ -7,7 +7,8 @@ import sttp.tapir.server.ziohttp.ZioHttpInterpreter
 import sttp.tapir.server.ziohttp.ZioHttpServerOptions
 import com.opos.reviewboard.http.controllers.HealthController
 import com.opos.reviewboard.http.HttpApi
-import com.opos.reviewboard.domain.CompanyService
+import com.opos.reviewboard.services.*
+import com.opos.reviewboard.repository.CompanyRepositoryLive
 
 object Runner extends ZIOAppDefault {
 
@@ -25,6 +26,8 @@ object Runner extends ZIOAppDefault {
     serverProgram
       .provide(
         Server.default,
-        CompanyService.dummy
+        CompanyServiceLive.layer,
+        CompanyRepositoryLive.layer,
+        Repository.dataLayer
       )
 }
