@@ -11,6 +11,7 @@ import zio.test.*
 
 object CompanyRepositorySpec extends ZIOSpecDefault with RepositorySpec {
 
+  override val initScript = "sql/companies.sql"
   private val company = Company(1L, "test-company", "Test Company Inc.", "test.com")
 
   private val companyGenZIO = for {

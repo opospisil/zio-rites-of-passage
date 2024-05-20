@@ -14,7 +14,7 @@ trait CompanyRepository {
   def getAll: Task[List[Company]]
 }
 
-class CompanyRepositoryLive(quill: Quill.Postgres[SnakeCase]) extends CompanyRepository {
+class CompanyRepositoryLive private (quill: Quill.Postgres[SnakeCase]) extends CompanyRepository {
 
   import quill.*
 
@@ -51,7 +51,6 @@ class CompanyRepositoryLive(quill: Quill.Postgres[SnakeCase]) extends CompanyRep
     run {
       query[Company]
         .filter(_.id == lift(id))
-        .take(1)
     }.map(_.headOption)
 
   override def getBySlug(slug: String): Task[Option[Company]] =

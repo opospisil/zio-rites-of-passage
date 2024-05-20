@@ -7,8 +7,13 @@ import zio.*
 import zio.test.*
 
 trait RepositorySpec {
+
+  val initScript: String
+
   private def createContainer = {
-    val container: PostgreSQLContainer[Nothing] = PostgreSQLContainer("postgres").withInitScript("sql/companies.sql")
+    val container: PostgreSQLContainer[Nothing] =
+      PostgreSQLContainer("postgres")
+        .withInitScript(initScript)
 
     container.start()
     container
