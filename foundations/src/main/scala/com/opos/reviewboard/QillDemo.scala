@@ -1,8 +1,8 @@
 package com.opos.zrp
 
-import zio.*
 import io.getquill.*
 import io.getquill.jdbczio.Quill
+import zio.*
 
 object QillDemo extends ZIOAppDefault {
 

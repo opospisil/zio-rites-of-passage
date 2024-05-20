@@ -31,10 +31,10 @@ private object Groups {
 
   val configGroup    = Seq(zioConfig)
   val zioGroup       = Seq(zio, zioStreams, zioJson, zioMacro)
-  val testGroup      = Seq(zioTest, zioTestSbt, zioTestMagnolia, zioTestJunit, zioMock, tapirStub)
+  val testGroup      = Seq(zioTest, zioTestSbt, zioTestMagnolia, zioTestJunit, zioMock, tapirStub, testContainersPostgres)
   val loggingGroup   = Seq(logback, zioLogging, zioLoggingSlf4j)
   val tapirGroup     = Seq(tapirSttp, tapirJsonZio, sttpZio, tapirZio, tapirHttp, tapirSwagger)
-  val dbGroup        = Seq(quillZio, postgresql, flywaydb, testContainersPostgres)
+  val dbGroup        = Seq(quillZio, postgresql, flywaydb)
   val jdiameterGroup = Seq(jdiameterApi, jdiameterImpl)
 }
 

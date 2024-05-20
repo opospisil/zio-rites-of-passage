@@ -1,7 +1,7 @@
 package com.opos.zrp
 
-import zio._
 import scala.io.StdIn
+import zio._
 
 object ZioRecap extends ZIOAppDefault {
 

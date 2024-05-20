@@ -1,7 +1,7 @@
 package com.opos.reviewboard
 
-import io.getquill.jdbczio.Quill
 import io.getquill.SnakeCase
+import io.getquill.jdbczio.Quill
 
 object Repository {
 

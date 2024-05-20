@@ -1,8 +1,8 @@
 package com.opos.reviewboard.http.requests
 
-import zio.json.JsonCodec
-import zio.json.DeriveJsonCodec
 import com.opos.reviewboard.domain.data.Company
+import zio.json.DeriveJsonCodec
+import zio.json.JsonCodec
 
 final case class CreateCompanyRequest(
   name: String,

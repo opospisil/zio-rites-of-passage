@@ -1,11 +1,10 @@
 package com.opos.reviewboard.http.endpoints
 
-import sttp.tapir.*
-import sttp.tapir.json.zio.*
-import sttp.tapir.generic.auto.*
-
-import com.opos.reviewboard.http.requests.*
 import com.opos.reviewboard.domain.data.*
+import com.opos.reviewboard.http.requests.*
+import sttp.tapir.*
+import sttp.tapir.generic.auto.*
+import sttp.tapir.json.zio.*
 
 trait CompanyEndpoints {
   val createEndpoint = endpoint

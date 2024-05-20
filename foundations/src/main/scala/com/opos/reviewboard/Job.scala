@@ -1,7 +1,7 @@
 package com.opos.zrp
 
-import zio.json.JsonCodec
 import zio.json.DeriveJsonCodec
+import zio.json.JsonCodec
 
 case class Job(id: Long, title: String, url: String, Company: String)
 

@@ -1,7 +1,7 @@
 package com.opos.reviewboard.domain.data
 
-import zio.json.JsonCodec
 import zio.json.DeriveJsonCodec
+import zio.json.JsonCodec
 
 final case class Company(
   id: Long,

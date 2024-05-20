@@ -1,19 +1,19 @@
 package com.opos.reviewboard.http.controllers
 
-import zio.test.*
+import com.opos.reviewboard.domain.data.Company
+import com.opos.reviewboard.http.requests.CreateCompanyRequest
+import com.opos.reviewboard.services.CompanyService
+import com.opos.reviewboard.syntax.*
+import sttp.client3.*
+import sttp.client3.testing.SttpBackendStub
+import sttp.monad.MonadError
+import sttp.tapir.generic.auto
+import sttp.tapir.server.ServerEndpoint
+import sttp.tapir.server.stub.TapirStubInterpreter
+import sttp.tapir.ztapir.RIOMonadError
 import zio.*
 import zio.json.*
-import sttp.tapir.server.stub.TapirStubInterpreter
-import sttp.tapir.generic.auto
-import sttp.client3.testing.SttpBackendStub
-import sttp.client3.*
-import sttp.monad.MonadError
-import sttp.tapir.ztapir.RIOMonadError
-import com.opos.reviewboard.http.requests.CreateCompanyRequest
-import com.opos.reviewboard.domain.data.Company
-import com.opos.reviewboard.syntax.*
-import sttp.tapir.server.ServerEndpoint
-import com.opos.reviewboard.domain.CompanyService
+import zio.test.*
 
 object CompanyControlerSpec extends ZIOSpecDefault {
 

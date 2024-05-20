@@ -1,14 +1,14 @@
 package com.opos.reviewboard
 
+import com.opos.reviewboard.http.HttpApi
+import com.opos.reviewboard.http.controllers.HealthController
+import com.opos.reviewboard.repository.CompanyRepositoryLive
+import com.opos.reviewboard.services.*
 import sttp.tapir.*
-import zio.*
-import zio.http.Server
 import sttp.tapir.server.ziohttp.ZioHttpInterpreter
 import sttp.tapir.server.ziohttp.ZioHttpServerOptions
-import com.opos.reviewboard.http.controllers.HealthController
-import com.opos.reviewboard.http.HttpApi
-import com.opos.reviewboard.services.*
-import com.opos.reviewboard.repository.CompanyRepositoryLive
+import zio.*
+import zio.http.Server
 
 object Runner extends ZIOAppDefault {
 

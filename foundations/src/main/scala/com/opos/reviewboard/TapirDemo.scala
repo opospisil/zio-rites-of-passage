@@ -1,17 +1,17 @@
 package com.opos.zrp
 
+import CreateJobRequest._
+import Job._
 import sttp.tapir._
-import zio._
-import zio.http.Server
+import sttp.tapir.generic.auto._
+import sttp.tapir.json.zio.jsonBody
+import sttp.tapir.server.ServerEndpoint
 import sttp.tapir.server.ziohttp.ZioHttpInterpreter
 import sttp.tapir.server.ziohttp.ZioHttpServerOptions
-import sttp.tapir.generic.auto._
-import Job._
-import CreateJobRequest._
-import sttp.tapir.json.zio.jsonBody
+import zio._
+import zio.http.Server
 import zio.json.DeriveJsonCodec
 import zio.json.JsonCodec
-import sttp.tapir.server.ServerEndpoint
 
 object TapirDemo extends ZIOAppDefault {
 

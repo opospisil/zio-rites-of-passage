@@ -1,10 +1,9 @@
 package com.opos.reviewboard.repository
 
-import zio.*
+import com.opos.reviewboard.domain.data.Company
 import io.getquill.*
 import io.getquill.jdbczio.Quill
-
-import com.opos.reviewboard.domain.data.Company
+import zio.*
 
 trait CompanyRepository {
   def create(Company: Company): Task[Company]
