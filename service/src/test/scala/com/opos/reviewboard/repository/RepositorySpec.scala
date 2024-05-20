@@ -1,6 +1,5 @@
 package com.opos.reviewboard.repository
 
-import java.sql.SQLException
 import javax.sql.DataSource
 import org.postgresql.ds.PGSimpleDataSource
 import org.testcontainers.containers.PostgreSQLContainer

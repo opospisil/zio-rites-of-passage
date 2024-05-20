@@ -84,7 +84,6 @@ object CompanyRepositorySpec extends ZIOSpecDefault with RepositorySpec {
         val program = for {
           repo      <- ZIO.service[CompanyRepository]
           companies <- ZIO.collectAllPar((1 to 10) map (_ => companyGenZIO.flatMap(repo.create)))
-
           all       <- repo.getAll
         } yield (companies, all)
 
