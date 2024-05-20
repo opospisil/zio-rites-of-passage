@@ -54,7 +54,7 @@ case class ReviewRepositoryLive private (quill: Quill.Postgres[SnakeCase]) exten
       query[Review]
     }
 
-  override def update(id: Long, op: Review => Review): Task[Review] = 
+  override def update(id: Long, op: Review => Review): Task[Review] =
     for {
       current <- getById(id).someOrFail(new RuntimeException(s"Update failed. Review not found for ${id}"))
       updated <- run {
@@ -64,7 +64,7 @@ case class ReviewRepositoryLive private (quill: Quill.Postgres[SnakeCase]) exten
                      .returning(r => r)
                  }
     } yield updated
-  override def delete(id: Long): Task[Review]                       =
+  override def delete(id: Long): Task[Review] =
     run {
       query[Review]
         .filter(_.id == lift(id))

@@ -83,8 +83,8 @@ object ReviewRepositorySpec extends ZIOSpecDefault with RepositorySpec {
       },
       test("Edit review") {
         for {
-          repo    <- ZIO.service[ReviewRepository]
-          review  <- repo.create(goodReview)
+          repo   <- ZIO.service[ReviewRepository]
+          review <- repo.create(goodReview)
           _ <- TestClock.adjust(1.seconds) // artificial delay to ensure updatedAt is different
           updated <- repo.update(review.id, _.copy(review = "Updated review"))
         } yield assertTrue(
