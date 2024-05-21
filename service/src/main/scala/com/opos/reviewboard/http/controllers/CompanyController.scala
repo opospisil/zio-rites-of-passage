@@ -23,7 +23,8 @@ class CompanyController private (service: CompanyService) extends BaseController
       .flatMap(service.getById)
       .catchSome { case _: NumberFormatException =>
         service.getBySlug(id) // try to get by slug if id is not a number
-      }.either
+      }
+      .either
 
   }
 

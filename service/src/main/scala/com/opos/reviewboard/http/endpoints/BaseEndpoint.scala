@@ -1,7 +1,7 @@
 package com.opos.reviewboard.http.endpoints
 
-import sttp.tapir.*
 import com.opos.reviewboard.domain.errors.HttpError
+import sttp.tapir.*
 
 trait BaseEndpoint {
 

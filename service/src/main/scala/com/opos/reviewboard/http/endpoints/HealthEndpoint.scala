@@ -12,8 +12,7 @@ trait HealthEndpoint extends BaseEndpoint {
     .in("health")
     .out(plainBody[String])
 
-
-    val errorEndpoint = baseEndpoint
+  val errorEndpoint = baseEndpoint
     .tag("health")
     .name("error")
     .description("error endpoint for testing purposes")
