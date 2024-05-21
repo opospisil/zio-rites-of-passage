@@ -10,7 +10,7 @@ import zio.test.*
 
 object ReviewServiceSpec extends ZIOSpecDefault {
 
-  val goodReview = Review(
+  private val goodReview = Review(
     id = 1L,
     companyId = 1L,
     userId = 1L,
@@ -24,7 +24,7 @@ object ReviewServiceSpec extends ZIOSpecDefault {
     updatedAt = java.time.Instant.now()
   )
 
-  val badReview = Review(
+  private val badReview = Review(
     id = 2L,
     companyId = 1L,
     userId = 1L,
@@ -83,7 +83,7 @@ object ReviewServiceSpec extends ZIOSpecDefault {
         }
 
       override def getByUserId(userId: Long): Task[List[Review]] =
-        ZIO.succeed{
+        ZIO.succeed {
           userId match {
             case 1 => List(goodReview, badReview)
             case _ => List.empty
