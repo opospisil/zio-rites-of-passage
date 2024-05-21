@@ -5,7 +5,7 @@ object Dependencies {
 
   val app         = zioGroup ++ configGroup ++ testGroup ++ loggingGroup
   val model       = Seq.empty[ModuleID]
-  val service     = zioGroup ++ loggingGroup ++ testGroup ++ tapirGroup ++ dbGroup
+  val service     = zioGroup ++ loggingGroup ++ testGroup ++ tapirGroup ++ dbGroup ++ configGroup
   val config      = configGroup
   val foundations = zioGroup ++ loggingGroup ++ testGroup ++ tapirGroup ++ dbGroup ++ jdiameterGroup
 }
@@ -29,11 +29,11 @@ private object Version {
 private object Groups {
   import Libs._
 
-  val configGroup    = Seq(zioConfig)
+  val configGroup    = Seq(pureConfig)
   val zioGroup       = Seq(zio, zioStreams, zioJson, zioMacro)
   val testGroup      = Seq(zioTest, zioTestSbt, zioTestMagnolia, zioTestJunit, zioMock, tapirStub, testContainersPostgres)
   val loggingGroup   = Seq(logback, zioLogging, zioLoggingSlf4j)
-  val tapirGroup     = Seq(tapirSttp, tapirJsonZio, sttpZio, tapirZio, tapirHttp, tapirSwagger)
+  val tapirGroup     = Seq(tapirSttp, tapirJsonZio, sttpZio, tapirZio, tapirHttp, tapirSwagger, jwt)
   val dbGroup        = Seq(quillZio, postgresql, flywaydb)
   val jdiameterGroup = Seq(jdiameterApi, jdiameterImpl)
 }
@@ -50,7 +50,7 @@ private object Libs {
 
   val logback = "ch.qos.logback" % "logback-classic" % Version.logback
 
-  //val pureConfig = "com.github.pureconfig" %% "pureconfig" % Version.pureConfig
+  val pureConfig = "com.github.pureconfig" %% "pureconfig-core" % Version.pureConfig
 
   val jdiameterApi     = "org.mobicents.diameter" % "jdiameter-api"  % "1.7.1-123"
   val jdiameterImpl    = "org.mobicents.diameter" % "jdiameter-impl" % "1.7.1-123"
