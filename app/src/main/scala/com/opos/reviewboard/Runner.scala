@@ -2,7 +2,7 @@ package com.opos.reviewboard
 
 import com.opos.reviewboard.http.HttpApi
 import com.opos.reviewboard.http.controllers.HealthController
-import com.opos.reviewboard.repository.CompanyRepositoryLive
+import com.opos.reviewboard.repository.*
 import com.opos.reviewboard.services.*
 import sttp.tapir.*
 import sttp.tapir.server.ziohttp.ZioHttpInterpreter
@@ -26,8 +26,12 @@ object Runner extends ZIOAppDefault {
     serverProgram
       .provide(
         Server.default,
+        // services
         CompanyServiceLive.layer,
+        ReviewServiceLive.layer,
+        // repositories
         CompanyRepositoryLive.layer,
+        ReviewRepositoryLive.layer,
         Repository.dataLayer
       )
 }
