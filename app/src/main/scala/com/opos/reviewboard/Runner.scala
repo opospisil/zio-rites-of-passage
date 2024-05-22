@@ -29,9 +29,12 @@ object Runner extends ZIOAppDefault {
         // services
         CompanyServiceLive.layer,
         ReviewServiceLive.layer,
+        UserServiceLive.layer,
+        JwtServiceLive.configuredLayer,
         // repositories
         CompanyRepositoryLive.layer,
         ReviewRepositoryLive.layer,
+        UserRepositoryLive.layer,
         Repository.dataLayer
       )
 }

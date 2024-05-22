@@ -3,11 +3,11 @@ package com.opos.reviewboard.services
 import com.auth0.jwt.*
 import com.auth0.jwt.JWTVerifier.BaseVerification
 import com.auth0.jwt.algorithms.Algorithm
+import com.opos.reviewboard.config.JwtConfig
 import com.opos.reviewboard.domain.data.*
 import java.time.Instant
-import zio.*
-import com.opos.reviewboard.config.JwtConfig
 import pureconfig.*
+import zio.*
 
 trait JwtService {
   def createToken(user: User): Task[UserToken]
@@ -52,23 +52,33 @@ class JwtServiceLive private (jwtConfig: JwtConfig, clock: java.time.Clock) exte
 }
 
 object JwtServiceLive {
+
+  inline given jwtReader: ConfigReader[JwtConfig] = ConfigReader.forProduct2("secret", "jwt_ttl")(JwtConfig(_, _))
+  private val configLayer = ZLayer {
+    ZIO.fromEither {
+      ConfigSource.resources("application.conf").at("reviewboard.jwt").load[JwtConfig]
+    }
+  }
+
   val layer = ZLayer {
     for {
-      clock <- Clock.javaClock
+      clock  <- Clock.javaClock
       config <- ZIO.service[JwtConfig]
     } yield new JwtServiceLive(config, clock)
   }
+
+  val configuredLayer = configLayer >>> layer
 }
 
 object JtwServiceDemo extends ZIOAppDefault {
 
-  inline given jwtReader: ConfigReader[JwtConfig] = ConfigReader.forProduct2("secret", "jwt_ttl")(JwtConfig(_,_))
+  inline given jwtReader: ConfigReader[JwtConfig] = ConfigReader.forProduct2("secret", "jwt_ttl")(JwtConfig(_, _))
   val configLayer = ZLayer {
     ZIO.fromEither {
       ConfigSource.resources("application.conf").at("reviewboard.jwt").load[JwtConfig]
     }
   }
-    
+
   val program = for {
     jwtService <- ZIO.service[JwtService]
     user       <- ZIO.succeed(User(1L, "user@email.com", "password"))

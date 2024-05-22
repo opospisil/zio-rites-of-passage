@@ -4,4 +4,4 @@ final case class UserToken(
   email: String,
   token: String,
   expiration: Long
-)
+) derives zio.json.JsonCodec

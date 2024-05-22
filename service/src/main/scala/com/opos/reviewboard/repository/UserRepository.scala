@@ -12,7 +12,7 @@ trait UserRepository {
   def getById(id: Long): Task[Option[User]]
   def getByEmail(email: String): Task[Option[User]]
   def update(id: Long, op: User => User): Task[User]
-  def delete(id: Long): Task[Unit]
+  def delete(id: Long): Task[User]
 
 }
 
@@ -54,12 +54,13 @@ class UserRepositoryLive private (quill: Quill.Postgres[SnakeCase]) extends User
       }
     } yield updated
 
-  override def delete(id: Long): Task[Unit] =
+  override def delete(id: Long): Task[User] =
     run {
       query[User]
         .filter(_.id == lift(id))
         .delete
-    }.unit
+        .returning(r => r)
+    }
 
 }
 
